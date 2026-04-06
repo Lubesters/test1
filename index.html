@@ -3,50 +3,452 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой простой сайт</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Коалиция Бездны | Delta RP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #020617;
+            --text-light: #f0f9ff;
+            --electric-blue: #00d4ff;
+            --deep-blue: #1d4ed8;
+            --neon-glow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: rgba(2, 6, 23, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--electric-blue);
+            text-shadow: var(--neon-glow);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--electric-blue);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            background: radial-gradient(ellipse at center, #0a1628 0%, var(--bg-dark) 70%);
+        }
+
+        .logo-container {
+            margin-bottom: 3rem;
+            animation: breathe 4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.3));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.6));
+                transform: scale(1.05);
+            }
+        }
+
+        .logo-svg {
+            width: 200px;
+            height: 200px;
+            fill: none;
+            stroke: var(--electric-blue);
+            stroke-width: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.8;
+            letter-spacing: 3px;
+            max-width: 600px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #0a1628 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 3rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--electric-blue);
+        }
+
+        .about-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 2;
+            opacity: 0.9;
+        }
+
+        /* Codex Section */
+        .codex {
+            padding: 6rem 2rem;
+            background: var(--bg-dark);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(29, 78, 216, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 2.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--electric-blue), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+            border-color: var(--electric-blue);
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--electric-blue);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            background: radial-gradient(ellipse at center, #0a1628 0%, var(--bg-dark) 100%);
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-light);
+            background: transparent;
+            border: 2px solid var(--electric-blue);
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--electric-blue);
+            color: var(--bg-dark);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.6);
+            transform: scale(1.05);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            nav {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                letter-spacing: 2px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                letter-spacing: 4px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo-svg {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.7rem;
+            }
+
+            .hero {
+                padding: 4rem 1rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .about, .codex, .cta {
+                padding: 4rem 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <h1>Добро пожаловать!</h1>
         <nav>
-            <ul>
-                <li><a href="#home">Главная</a></li>
-                <li><a href="#about">О нас</a></li>
-                <li><a href="#contact">Контакты</a></li>
-            </ul>
+            <a href="#depths">Глубины</a>
+            <a href="#codex">Кодекс</a>
+            <a href="#order">Орден</a>
+            <a href="#call">Призыв</a>
         </nav>
     </header>
 
-    <main>
-        <section id="home">
-            <h2>Главная страница</h2>
-            <p>Это пример простого сайта на HTML, CSS и JavaScript.</p>
-            <button id="greetButton">Поздороваться</button>
-            <p id="greeting"></p>
-        </section>
+    <!-- Hero Section -->
+    <section class="hero" id="depths">
+        <div class="logo-container">
+            <svg class="logo-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Stylized Kraken/Octopus Logo -->
+                <circle cx="100" cy="80" r="25" stroke-width="2"/>
+                <path d="M100 105 Q100 130 90 150 Q85 165 80 180" stroke-width="2" fill="none"/>
+                <path d="M100 105 Q100 130 110 150 Q115 165 120 180" stroke-width="2" fill="none"/>
+                <path d="M100 105 Q85 125 70 145 Q60 160 50 175" stroke-width="2" fill="none"/>
+                <path d="M100 105 Q115 125 130 145 Q140 160 150 175" stroke-width="2" fill="none"/>
+                <path d="M100 105 Q75 120 60 135 Q45 150 35 165" stroke-width="2" fill="none"/>
+                <path d="M100 105 Q125 120 140 135 Q155 150 165 165" stroke-width="2" fill="none"/>
+                <path d="M100 105 Q100 115 100 125" stroke-width="2" fill="none"/>
+                <circle cx="90" cy="75" r="3" fill="currentColor"/>
+                <circle cx="110" cy="75" r="3" fill="currentColor"/>
+            </svg>
+        </div>
+        <h1>Коалиция Бездны | Delta RP</h1>
+        <p>Древние сущности пробуждаются в кубах</p>
+    </section>
 
-        <section id="about">
-            <h2>О нас</h2>
-            <p>Мы создаем простые и красивые веб-сайты.</p>
-        </section>
+    <!-- About Section -->
+    <section class="about" id="order">
+        <div class="container">
+            <h2 class="section-title">О Нас</h2>
+            <div class="about-text">
+                <p>
+                    В безмолвных глубинах океанов сервера Delta, там где свет не смеет проникать, 
+                    мы — хранители древних тайн. Наши предки шептались о том, что скрыто в пещерах, 
+                    куда не ступала нога смертного. Мы слушаем зов изначальных вод, исследуем забытые 
+                    руины подводных храмов и собираем знания, что были утеряны во тьме времён.
+                </p>
+                <br>
+                <p>
+                    Коалиция Бездны — это не просто союз игроков. Это орден искателей истины, 
+                    тех кто осмелился взглянуть в лицо непознаваемому и не сошёл с ума. 
+                    Присоединяйся к нам, если готов услышать шёпот из глубин.
+                </p>
+            </div>
+        </div>
+    </section>
 
-        <section id="contact">
-            <h2>Контакты</h2>
-            <form id="contactForm">
-                <input type="text" id="name" placeholder="Ваше имя" required>
-                <input type="email" id="email" placeholder="Ваш email" required>
-                <textarea id="message" placeholder="Ваше сообщение" required></textarea>
-                <button type="submit">Отправить</button>
-            </form>
-            <p id="formMessage"></p>
-        </section>
-    </main>
+    <!-- Codex Section -->
+    <section class="codex" id="codex">
+        <div class="container">
+            <h2 class="section-title">Кодекс</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-icon">👁️</div>
+                    <h3>Молчание Глубин</h3>
+                    <p>
+                        Тайны бездны не для посторонних ушей. Храни секреты ордена, 
+                        ибо знание — сила, а сила требует осторожности. То, что мы видим 
+                        в темноте, должно остаться в темноте.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🐙</div>
+                    <h3>Единство Щупалец</h3>
+                    <p>
+                        Как щупальца одного существа, мы действуем согласованно. 
+                        Помощь брату по ордену — священный долг. В единстве наша сила, 
+                        в разобщённости — гибель.
+                    </p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⚗️</div>
+                    <h3>Жертва Прогрессу</h3>
+                    <p>
+                        Развитие базы — путь к познанию. Ресурсы, собранные в глубинах, 
+                        должны служить великой цели. Каждый блок, каждая деталь приближает 
+                        нас к пониманию древних технологий.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- CTA Section -->
+    <section class="cta" id="call">
+        <div class="container">
+            <h2 class="section-title">Призыв</h2>
+            <p style="margin-bottom: 2rem; opacity: 0.8; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Зов бездны слышен лишь избранным. Если ты чувствуешь притяжение глубин, 
+                если твою душу манят тайны океана — твой путь лежит к нам.
+            </p>
+            <a href="https://discord.gg/your-invite-link" class="cta-button" target="_blank" rel="noopener noreferrer">
+                Примкнуть к культу
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2024 Мой простой сайт</p>
+        <p>&copy; 2024 Коалиция Бездны | Delta RP. Во тьме мы обретаем свет.</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
