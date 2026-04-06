@@ -4,610 +4,321 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Коалиция Бездны | Delta RP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-deep: #020617;
+            --bg-black: #000000;
+            --neon-blue: #00f3ff;
+            --neon-dim: rgba(0, 243, 255, 0.3);
+            --eye-color: #fbbf24;
+            --text-main: #f0f9ff;
+            --glass-bg: rgba(2, 6, 23, 0.6);
+            --glass-border: rgba(0, 243, 255, 0.2);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --deep-black: #020617;
-            --sea-foam: #f0f9ff;
-            --electric-blue: #00d4ff;
-            --ocean-blue: #00f3ff;
-            --deep-blue: #1d4ed8;
-            --neon-yellow: #fff700;
-        }
-
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: linear-gradient(180deg, var(--deep-black) 0%, #000000 100%);
-            color: var(--sea-foam);
+            background: radial-gradient(circle at center, #0f172a 0%, var(--bg-deep) 40%, var(--bg-black) 100%);
+            color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        .logo-container {
+            width: 280px;
+            height: 280px;
+            margin-bottom: 2rem;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.2));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .cthulhu-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .cthulhu-head {
+            fill: url(#headGradient);
+            stroke: var(--neon-blue);
+            stroke-width: 1;
+        }
+
+        .cthulhu-tentacle {
+            fill: url(#tentacleGradient);
+            stroke: var(--neon-blue);
+            stroke-width: 0.5;
+            opacity: 0.9;
+        }
+
+        .cthulhu-eye {
+            fill: var(--eye-color);
+            filter: drop-shadow(0 0 8px var(--eye-color));
+            animation: eyePulse 3s infinite alternate, blink 4s infinite;
+            transform-origin: center;
+        }
+
+        @keyframes eyePulse {
+            0% { filter: drop-shadow(0 0 5px var(--eye-color)); opacity: 0.8; }
+            100% { filter: drop-shadow(0 0 15px var(--eye-color)); opacity: 1; }
+        }
+
+        @keyframes blink {
+            0%, 48%, 52%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.1); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px var(--neon-dim);
+            background: linear-gradient(to bottom, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            font-weight: 300;
+            max-width: 600px;
             line-height: 1.6;
         }
 
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 2rem;
-            background: rgba(2, 6, 23, 0.9);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--electric-blue);
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--sea-foam);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--electric-blue);
-            text-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--electric-blue);
-            transition: width 0.3s ease;
-            box-shadow: 0 0 10px var(--electric-blue);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 6rem 2rem 4rem;
-            position: relative;
-        }
-
-        /* Octopus Logo */
-        .logo-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin-bottom: 2rem;
-            animation: floating 4s ease-in-out infinite;
-        }
-
-        @keyframes floating {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            25% {
-                transform: translateY(-15px) rotate(2deg);
-            }
-            50% {
-                transform: translateY(-8px) rotate(0deg);
-            }
-            75% {
-                transform: translateY(-20px) rotate(-2deg);
-            }
-        }
-
-        .octopus-logo {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        .octopus-body {
-            position: absolute;
-            width: 120px;
-            height: 100px;
-            background: linear-gradient(135deg, #1e3a5f 0%, #0d2137 100%);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 
-                0 10px 30px rgba(0, 0, 0, 0.8),
-                0 0 40px rgba(0, 212, 255, 0.3),
-                inset 0 -10px 20px rgba(0, 0, 0, 0.5);
-            z-index: 2;
-        }
-
-        .octopus-head {
-            position: absolute;
-            width: 80px;
-            height: 70px;
-            background: linear-gradient(135deg, #2a4a6f 0%, #153045 100%);
-            border-radius: 50%;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 
-                0 5px 20px rgba(0, 0, 0, 0.6),
-                inset 0 -5px 15px rgba(0, 0, 0, 0.4);
-            z-index: 3;
-        }
-
-        .eye {
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            background: radial-gradient(circle, var(--neon-yellow) 0%, #b8860b 70%, #000000 100%);
-            border-radius: 50%;
-            top: 25px;
-            box-shadow: 
-                0 0 20px var(--neon-yellow),
-                0 0 40px rgba(255, 247, 0, 0.5),
-                inset 0 0 10px rgba(0, 0, 0, 0.8);
-            animation: eyeGlow 3s ease-in-out infinite alternate;
-            z-index: 4;
-        }
-
-        .eye-left {
-            left: 65px;
-        }
-
-        .eye-right {
-            right: 65px;
-        }
-
-        @keyframes eyeGlow {
-            0% {
-                box-shadow: 0 0 15px var(--neon-yellow), 0 0 30px rgba(255, 247, 0, 0.3);
-                opacity: 0.8;
-            }
-            100% {
-                box-shadow: 0 0 25px var(--neon-yellow), 0 0 50px rgba(255, 247, 0, 0.7), 0 0 70px rgba(255, 247, 0, 0.4);
-                opacity: 1;
-            }
-        }
-
-        .tentacle {
-            position: absolute;
-            width: 25px;
-            height: 80px;
-            background: linear-gradient(180deg, #1e3a5f 0%, #0d2137 100%);
-            border-radius: 50%;
-            bottom: -60px;
-            box-shadow: 
-                0 5px 15px rgba(0, 0, 0, 0.5),
-                inset 0 -5px 10px rgba(0, 0, 0, 0.3);
-            z-index: 1;
-        }
-
-        .tentacle::before {
-            content: '';
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: rgba(0, 212, 255, 0.3);
-            border-radius: 50%;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
-        }
-
-        .tentacle::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: rgba(0, 212, 255, 0.2);
-            border-radius: 50%;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 3px rgba(0, 212, 255, 0.4);
-        }
-
-        .t1 { left: 20px; transform: rotate(15deg); }
-        .t2 { left: 50px; transform: rotate(5deg); }
-        .t3 { left: 80px; transform: rotate(-5deg); }
-        .t4 { left: 110px; transform: rotate(-15deg); }
-        .t5 { left: 140px; transform: rotate(-25deg); }
-        .t6 { left: 35px; transform: rotate(25deg); height: 60px; }
-        .t7 { left: 125px; transform: rotate(-25deg); height: 60px; }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--sea-foam) 0%, var(--electric-blue) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
-            letter-spacing: 2px;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: rgba(240, 249, 255, 0.8);
-            max-width: 600px;
-            margin-bottom: 2rem;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: transparent;
-            color: var(--electric-blue);
-            border: 2px solid var(--electric-blue);
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-        }
-
-        .btn:hover {
-            background: var(--electric-blue);
-            color: var(--deep-black);
-            box-shadow: 
-                0 0 30px rgba(0, 212, 255, 0.6),
-                0 0 60px rgba(0, 212, 255, 0.4);
-            transform: translateY(-3px);
-        }
-
-        .btn-pulse {
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
-            }
-            50% {
-                box-shadow: 
-                    0 0 25px rgba(0, 212, 255, 0.5),
-                    0 0 50px rgba(0, 212, 255, 0.3);
-            }
-        }
-
-        /* Sections */
-        section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--electric-blue);
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-        }
-
-        /* About Section */
-        .about-content {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: rgba(240, 249, 255, 0.9);
-        }
-
-        /* Cards Grid */
-        .cards-grid {
+        .content-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
         }
 
         .card {
-            background: rgba(2, 6, 23, 0.6);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 15px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
             padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
         .card:hover {
-            border-color: var(--electric-blue);
-            box-shadow: 
-                0 0 30px rgba(0, 212, 255, 0.3),
-                0 10px 40px rgba(0, 0, 0, 0.5);
             transform: translateY(-5px);
+            box-shadow: 0 0 25px var(--neon-dim);
+            border-color: var(--neon-blue);
         }
 
         .card h3 {
             font-size: 1.5rem;
-            color: var(--electric-blue);
             margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .card p {
-            color: rgba(240, 249, 255, 0.8);
-            line-height: 1.7;
+            line-height: 1.6;
+            color: #cbd5e1;
         }
 
-        /* CTA Section */
         .cta-section {
             text-align: center;
             padding: 4rem 2rem;
+            position: relative;
+            z-index: 5;
         }
 
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--sea-foam);
-        }
-
-        .cta-section p {
+        .btn-neon {
+            display: inline-block;
+            padding: 1rem 3rem;
             font-size: 1.2rem;
-            color: rgba(240, 249, 255, 0.8);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--bg-deep);
+            background: var(--neon-blue);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 0 20px var(--neon-dim);
+            transition: all 0.3s ease;
+            animation: pulseBtn 2s infinite;
         }
 
-        /* Footer with Tentacles */
+        .btn-neon:hover {
+            background: #fff;
+            box-shadow: 0 0 40px var(--neon-blue);
+            transform: scale(1.05);
+        }
+
+        @keyframes pulseBtn {
+            0% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 243, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 243, 255, 0); }
+        }
+
         footer {
             position: relative;
+            width: 100%;
             height: 300px;
-            background: linear-gradient(180deg, var(--deep-black) 0%, #000000 100%);
+            background: transparent;
             overflow: hidden;
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            z-index: 1;
         }
 
         #tentacleCanvas {
-            position: absolute;
-            bottom: 0;
-            left: 0;
+            display: block;
             width: 100%;
             height: 100%;
         }
 
-        .footer-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 2rem;
-            color: rgba(240, 249, 255, 0.5);
-        }
-
-        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .logo-container {
-                width: 150px;
-                height: 150px;
-            }
-
-            .octopus-body {
-                width: 90px;
-                height: 75px;
-            }
-
-            .octopus-head {
-                width: 60px;
-                height: 52px;
-            }
-
-            .eye {
-                width: 14px;
-                height: 14px;
-            }
-
-            .eye-left {
-                left: 48px;
-            }
-
-            .eye-right {
-                right: 48px;
-            }
-
-            .tentacle {
-                width: 20px;
-                height: 60px;
-            }
-
-            .t1 { left: 15px; }
-            .t2 { left: 38px; }
-            .t3 { left: 60px; }
-            .t4 { left: 82px; }
-            .t5 { left: 105px; }
-            .t6 { left: 26px; height: 45px; }
-            .t7 { left: 94px; height: 45px; }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .btn {
-                padding: 0.8rem 2rem;
-                font-size: 1rem;
-            }
+            h1 { font-size: 2rem; }
+            .logo-container { width: 200px; height: 200px; }
+            nav ul { gap: 1rem; }
+            footer { height: 200px; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+
     <header>
         <nav>
-            <div class="logo-text">БЕЗДНА</div>
-            <ul class="nav-links">
+            <ul>
                 <li><a href="#about">Глубины</a></li>
-                <li><a href="#codex">Кодекс</a></li>
+                <li><a href="#code">Кодекс</a></li>
                 <li><a href="#order">Орден</a></li>
                 <li><a href="#join">Призыв</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="logo-container">
-            <div class="octopus-logo">
-                <div class="octopus-body"></div>
-                <div class="octopus-head"></div>
-                <div class="eye eye-left"></div>
-                <div class="eye eye-right"></div>
-                <div class="tentacle t1"></div>
-                <div class="tentacle t2"></div>
-                <div class="tentacle t3"></div>
-                <div class="tentacle t4"></div>
-                <div class="tentacle t5"></div>
-                <div class="tentacle t6"></div>
-                <div class="tentacle t7"></div>
-            </div>
+            <svg class="cthulhu-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="headGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="tentacleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#020617;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                
+                <path class="cthulhu-head" d="M100,40 C140,40 170,70 170,110 C170,150 140,180 100,180 C60,180 30,150 30,110 C30,70 60,40 100,40 Z" />
+                
+                <circle class="cthulhu-eye" cx="75" cy="90" r="6" />
+                <circle class="cthulhu-eye" cx="125" cy="90" r="6" />
+                
+                <path class="cthulhu-tentacle" d="M60,160 Q50,190 40,220 Q30,210 35,180 Q45,150 60,160" />
+                <path class="cthulhu-tentacle" d="M80,170 Q70,200 65,230 Q55,220 60,190 Q70,160 80,170" />
+                <path class="cthulhu-tentacle" d="M100,175 Q100,210 100,240 Q90,230 90,200 Q90,170 100,175" />
+                <path class="cthulhu-tentacle" d="M120,170 Q130,200 135,230 Q145,220 140,190 Q130,160 120,170" />
+                <path class="cthulhu-tentacle" d="M140,160 Q150,190 160,220 Q170,210 165,180 Q155,150 140,160" />
+                
+                <circle cx="50" cy="190" r="1.5" fill="#00f3ff" />
+                <circle cx="70" cy="200" r="1.5" fill="#00f3ff" />
+                <circle cx="100" cy="210" r="1.5" fill="#00f3ff" />
+                <circle cx="130" cy="200" r="1.5" fill="#00f3ff" />
+                <circle cx="150" cy="190" r="1.5" fill="#00f3ff" />
+            </svg>
         </div>
-        <h1>ВЕЧНЫЙ ОКЕАН ДЕЛЬТЫ</h1>
-        <p>Древние сущности пробуждаются в кубах. Те, кто осмелится взглянуть в бездну, обретут знание... или погибель.</p>
-        <a href="https://discord.gg/your-server" class="btn btn-pulse" target="_blank">Примкнуть к культу</a>
+
+        <h1>Вечный Океан Дельты</h1>
+        <p class="subtitle">Древние сущности пробуждаются в кубах. Мы — те, кто слушает зов бездны.</p>
     </section>
 
-    <!-- About Section -->
-    <section id="about">
-        <h2 class="section-title">ТАЙНЫ ГЛУБИН</h2>
-        <div class="about-content">
-            <p>
-                В бескрайних океанах сервера Delta скрываются древние тайны, забытые даже богами. 
-                Мы — Коалиция Бездны — исследователи неизведанного, хранители запретных знаний. 
-                Наши щупальца проникают в самые темные пещеры, наши глаза видят то, что скрыто от смертных.
-            </p>
-            <br>
-            <p>
-                Присоединяйся к нам, если готов услышать шепот глубин и узреть истинный лик реальности.
-            </p>
+    <section class="content-grid" id="about">
+        <div class="card">
+            <h3>Тайны Глубин</h3>
+            <p>Мы исследуем самые темные уголки сервера Delta. От подводных руин до забытых пещер, где свет не смеет проникать. Наши знания — это сила, дарованная древними.</p>
         </div>
-    </section>
-
-    <!-- Codex Section -->
-    <section id="codex">
-        <h2 class="section-title">КОДЕКС БЕЗДНЫ</h2>
-        <div class="cards-grid">
-            <div class="card">
-                <h3>МОЛЧАНИЕ ГЛУБИН</h3>
-                <p>
-                    Тайна — наше оружие. Ни один непосвященный не должен узнать о наших ритуалах. 
-                    Молчи, наблюдай, действуй в тени.
-                </p>
-            </div>
-            <div class="card">
-                <h3>ЕДИНСТВО ЩУПАЛЕЦ</h3>
-                <p>
-                    Как щупальца едины с телом Ктулху, так и мы едины друг с другом. 
-                    Помогай брату своему, ибо в единстве — сила бездны.
-                </p>
-            </div>
-            <div class="card">
-                <h3>ЖЕРТВА ПРОГРЕССУ</h3>
-                <p>
-                    Развитие требует жертв. Укрепляй базу, совершенствуй знания, 
-                    отдавай ресурсы во имя величия Коалиции.
-                </p>
-            </div>
+        <div class="card" id="code">
+            <h3>Кодекс Бездны</h3>
+            <p>1. Молчание глубин: Тайны коалиции не для чужих ушей.<br>2. Единство щупалец: Один за всех и все за одного.<br>3. Жертва прогрессу: Развитие базы превыше всего.</p>
+        </div>
+        <div class="card" id="order">
+            <h3>Орден Избранных</h3>
+            <p>В наши ряды входят лишь те, кто доказал свою преданность и силу. Мы не просто игроки, мы — хранители баланса между хаосом и порядком.</p>
         </div>
     </section>
 
-    <!-- Order Section -->
-    <section id="order">
-        <h2 class="section-title">ОРДЕН ИЗБРАННЫХ</h2>
-        <div class="about-content">
-            <p>
-                Только достойные могут войти в наш круг. Те, кто доказал свою верность бездне, 
-                получают доступ к древним артефактам и секретным локациям сервера.
-            </p>
-            <br>
-            <p>
-                Наш орден — это не просто группа игроков. Это культ, посвященный служению 
-                великим древним, спящим в океанских глубинах Delta.
-            </p>
-        </div>
+    <section class="cta-section" id="join">
+        <a href="https://discord.gg/your-server" target="_blank" class="btn-neon">Примкнуть к культу</a>
     </section>
 
-    <!-- CTA Section -->
-    <section id="join" class="cta-section">
-        <h2>ГОТОВ ЛИ ТЫ УЗРИТЬ ИСТИНУ?</h2>
-        <p>
-            Призыв звучит из глубин. Если ты слышишь его — твой путь предопределен. 
-            Присоединяйся к нам в Discord и сделай первый шаг к просветлению.
-        </p>
-        <a href="https://discord.gg/your-server" class="btn btn-pulse" target="_blank">Вступить в ряды культа</a>
-    </section>
-
-    <!-- Footer with Animated Tentacles -->
     <footer>
         <canvas id="tentacleCanvas"></canvas>
-        <div class="footer-content">
-            <p>&copy; 2024 Коалиция Бездны | Delta RP. Все права принадлежат глубинам.</p>
-        </div>
     </footer>
 
     <script>
-        // Tentacle Animation using Canvas
         const canvas = document.getElementById('tentacleCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -616,94 +327,101 @@
 
         function resize() {
             width = canvas.width = window.innerWidth;
-            height = canvas.height = 300;
+            height = canvas.height = window.innerHeight;
             initTentacles();
         }
 
         class Tentacle {
-            constructor(x) {
+            constructor(x, delay, length, thickness) {
                 this.x = x;
-                this.y = height;
-                this.segments = [];
-                this.numSegments = Math.floor(Math.random() * 8) + 12;
-                this.segmentLength = Math.random() * 8 + 12;
-                this.amplitude = Math.random() * 30 + 20;
-                this.frequency = Math.random() * 0.02 + 0.01;
-                this.speed = Math.random() * 0.02 + 0.01;
-                this.phase = Math.random() * Math.PI * 2;
-                this.opacity = Math.random() * 0.3 + 0.1;
-                this.width = Math.random() * 15 + 10;
+                this.y = height + 50;
+                this.delay = delay;
+                this.length = length;
+                this.thickness = thickness;
+                this.points = [];
+                this.speed = 0.02 + Math.random() * 0.03;
+                this.frequency = 0.01 + Math.random() * 0.02;
                 
-                for (let i = 0; i < this.numSegments; i++) {
-                    this.segments.push({
-                        x: this.x,
-                        y: this.y - i * this.segmentLength
-                    });
+                for(let i = 0; i < this.length; i++) {
+                    this.points.push({x: this.x, y: this.y - i * 5});
                 }
             }
 
             update(time) {
-                for (let i = 0; i < this.segments.length; i++) {
-                    const segment = this.segments[i];
-                    const offset = i * 0.5;
-                    segment.x = this.x + Math.sin(time * this.speed + this.phase + offset) * this.amplitude * (i / this.numSegments);
-                    segment.y = this.y - i * this.segmentLength + Math.cos(time * this.speed * 0.5 + this.phase + offset) * 10;
+                const baseX = this.x + Math.sin(time * this.speed + this.delay) * 50;
+                this.points[0].x = baseX;
+                this.points[0].y = height + Math.sin(time * 0.05 + this.delay) * 20;
+
+                for (let i = 1; i < this.points.length; i++) {
+                    const prev = this.points[i - 1];
+                    const curr = this.points[i];
+                    
+                    const dx = prev.x - curr.x;
+                    const dy = prev.y - curr.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    const angle = Math.atan2(dy, dx);
+                    
+                    const targetDist = 5;
+                    if (dist > targetDist) {
+                        curr.x = prev.x - Math.cos(angle) * targetDist;
+                        curr.y = prev.y - Math.sin(angle) * targetDist;
+                    }
+                    
+                    curr.x += Math.sin(time * this.frequency + i * 0.5 + this.delay) * 2;
                 }
             }
 
-            draw() {
+            draw(ctx) {
+                if (this.points.length < 2) return;
+
                 ctx.beginPath();
-                ctx.moveTo(this.segments[0].x, this.segments[0].y);
+                ctx.moveTo(this.points[0].x, this.points[0].y);
                 
-                for (let i = 1; i < this.segments.length; i++) {
-                    const seg = this.segments[i];
-                    const prevSeg = this.segments[i - 1];
-                    const cx = (prevSeg.x + seg.x) / 2;
-                    const cy = (prevSeg.y + seg.y) / 2;
-                    ctx.quadraticCurveTo(prevSeg.x, prevSeg.y, cx, cy);
+                for (let i = 1; i < this.points.length - 1; i++) {
+                    const xc = (this.points[i].x + this.points[i + 1].x) / 2;
+                    const yc = (this.points[i].y + this.points[i + 1].y) / 2;
+                    ctx.quadraticCurveTo(this.points[i].x, this.points[i].y, xc, yc);
                 }
+                
+                const last = this.points[this.points.length - 1];
+                ctx.lineTo(last.x, last.y);
 
-                const gradient = ctx.createLinearGradient(
-                    this.segments[0].x, this.segments[0].y,
-                    this.segments[this.segments.length - 1].x,
-                    this.segments[this.segments.length - 1].y
-                );
-                gradient.addColorStop(0, `rgba(0, 212, 255, ${this.opacity})`);
-                gradient.addColorStop(0.5, `rgba(29, 78, 216, ${this.opacity * 0.7})`);
-                gradient.addColorStop(1, `rgba(2, 6, 23, 0)`);
-
-                ctx.strokeStyle = gradient;
-                ctx.lineWidth = this.width;
                 ctx.lineCap = 'round';
                 ctx.lineJoin = 'round';
+                
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#00f3ff';
+                ctx.strokeStyle = 'rgba(2, 6, 23, 0.8)';
+                ctx.lineWidth = this.thickness;
                 ctx.stroke();
-
-                // Neon glow
-                ctx.shadowBlur = 15;
-                ctx.shadowColor = 'rgba(0, 212, 255, 0.5)';
-                ctx.stroke();
+                
                 ctx.shadowBlur = 0;
+                ctx.strokeStyle = 'rgba(0, 243, 255, 0.3)';
+                ctx.lineWidth = this.thickness / 2;
+                ctx.stroke();
             }
         }
 
         function initTentacles() {
             tentacles = [];
-            const numTentacles = Math.floor(width / 80);
-            for (let i = 0; i < numTentacles; i++) {
-                const x = (width / numTentacles) * i + Math.random() * 40;
-                tentacles.push(new Tentacle(x));
+            const count = Math.floor(width / 60);
+            for (let i = 0; i < count; i++) {
+                const x = (width / count) * i + (width / count) / 2;
+                const delay = i * 0.5;
+                const length = 20 + Math.random() * 15;
+                const thickness = 8 + Math.random() * 12;
+                tentacles.push(new Tentacle(x, delay, length, thickness));
             }
         }
 
         let time = 0;
         function animate() {
             ctx.clearRect(0, 0, width, height);
-            
             time += 1;
             
-            tentacles.forEach(tentacle => {
-                tentacle.update(time);
-                tentacle.draw();
+            tentacles.forEach(t => {
+                t.update(time);
+                t.draw(ctx);
             });
 
             requestAnimationFrame(animate);
